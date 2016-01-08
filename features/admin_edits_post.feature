@@ -8,6 +8,6 @@ Feature: Admin edits post
     When I click edit
     Then I see the edit page for that post
     When I enter new information into that form
-    And I click submit
+    And I click publish
     Then I see the show page for that edited post
     And I see a message "Post updated"

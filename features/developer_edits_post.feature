@@ -7,7 +7,7 @@ Feature: Developer edits post
     When I click edit
     Then I see the edit page for that post
     When I enter new information into that form
-    And I click submit
+    And I click publish
     Then I see the show page for that edited post
     And I see a message "Post updated"
 
@@ -30,7 +30,7 @@ Feature: Developer edits post
     When I click edit
     Then I see the edit page for that post
     When I edit the post to no longer have a body
-    And I click submit
+    And I click publish
     Then I see an error message "Body can't be blank"
 
   Scenario: Developer clicks cancel

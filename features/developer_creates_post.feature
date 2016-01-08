@@ -7,8 +7,7 @@ Feature: Developer creates post
     Then I see a form for posts
     When I enter information into that form
     And I select a channel
-    And I check "Publish this post"
-    And I click submit
+    And I click publish
     Then I see the homepage
     And I see the post I created
     And I see the channel I selected
@@ -24,8 +23,7 @@ Feature: Developer creates post
     Then I see a form for posts
     When I enter information with markdown inline code into that form
     And I select a channel
-    And I check "Publish this post"
-    And I click submit
+    And I click publish
     Then I see the homepage
     And I see the markdown inline code I created
 
@@ -36,8 +34,7 @@ Feature: Developer creates post
     Then I see a form for posts
     When I enter information with markdown fenced code into that form
     And I select a channel
-    And I check "Publish this post"
-    And I click submit
+    And I click publish
     Then I see the homepage
     And I see the markdown fenced code I created
 
@@ -48,8 +45,7 @@ Feature: Developer creates post
     Then I see a form for posts
     When I enter information with markdown bullets into that form
     And I select a channel
-    And I check "Publish this post"
-    And I click submit
+    And I click publish
     Then I see the homepage
     And I see the markdown bullets I created
 
@@ -57,7 +53,7 @@ Feature: Developer creates post
     Given I am a signed in developer
     When I click create post
     Then I see a form for posts
-    When I click submit
+    When I click publish
     Then I see an error message "Body can't be blank"
 
   Scenario: With invalid information (post body too long)
@@ -66,7 +62,7 @@ Feature: Developer creates post
     Then I see a form for posts
     When I enter a long body into that form
     And I select no channel
-    When I click submit
+    When I click publish
     Then I see an error message "Body of this post is too long. It is 100 words over the limit of 200 words"
 
   Scenario: With invalid information (no channel)
@@ -74,7 +70,7 @@ Feature: Developer creates post
     When I click create post
     Then I see a form for posts
     When I enter information into that form
-    And I click submit
+    And I click publish
     Then I see an error message "Channel can't be blank"
 
   Scenario: Developer clicks cancel
@@ -131,9 +127,23 @@ Feature: Developer creates post
 
   Scenario: Developer creates draft
     Given I am a signed in developer
-    And   I have an existing unpublished post
-    When  I visit the posts page
+    And   a channel exists
+    And   I am on the new post page
+    When  I fill out the post form
+    And   I click on "Save as draft"
     Then  I see the draft
+
+  Scenario: Developer creates draft and then publishes it
+    Given I am a signed in developer
+    And   a channel exists
+    And   I am on the new post page
+    When  I fill out the post form
+    And   I click on "Save as draft"
+    Then  I see the draft
+    When  I click on "Web Development"
+    When  I click on "edit this post"
+    And   I click on "Publish"
+    Then  I see the published post
 
   @javascript
   Scenario: Developer sees updating title char count

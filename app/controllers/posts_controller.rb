@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.developer = current_developer
+
     if @post.save
       path = process_post
       redirect_to path, notice: display_name(@post) + 'created'
@@ -43,8 +44,11 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      @post.publish if params[:published] && !@post.published?
-      SocialMessaging::TwitterStatus.new(@post).post_to_twitter
+      if params[:commit] == "Publish" && !@post.published?
+        @post.publish
+        SocialMessaging::TwitterStatus.new(@post).post_to_twitter
+      end
+
       redirect_to @post, notice: display_name(@post) + 'updated'
     else
       render :edit
@@ -89,7 +93,7 @@ class PostsController < ApplicationController
   private
 
   def process_post
-    if params[:published]
+    if params[:commit] == "Publish"
       @post.publish
       SocialMessaging::TwitterStatus.new(@post).post_to_twitter
       root_path

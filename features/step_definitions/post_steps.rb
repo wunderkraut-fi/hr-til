@@ -76,12 +76,16 @@ When(/^I check "(.*?)"$/) do |label|
   check label
 end
 
+When(/^I uncheck "(.*?)"$/) do |label|
+  uncheck label
+end
+
 And 'I select no channel' do
   select '', from: 'Channel'
 end
 
-When 'I click submit' do
-  click_on 'Submit'
+When 'I click publish' do
+  click_on 'Publish'
 end
 
 And 'I click raw' do
@@ -523,6 +527,10 @@ When(/^I click "(.*?)"$/) do |arg|
   find('a', text: arg).trigger 'click'
 end
 
+When(/^I click on "(.*?)"$/) do |arg|
+  click_on arg
+end
+
 Then 'I should see the About Us text' do
   expect(page).to have_selector '.site_about', visible: true
 end
@@ -533,6 +541,18 @@ end
 
 Given(/^I have an existing unpublished post$/) do
   @post = FactoryGirl.create(:post, :draft, developer: @developer)
+end
+
+Given(/^I am on the new post page$/) do
+  visit new_post_path
+end
+
+When(/^I fill out the post form$/) do
+  within 'form#new_post' do
+    fill_in 'Title', with: 'Web Development'
+    fill_in 'Body', with: 'I learned about Rails'
+    select @channel.name, from: 'Channel'
+  end
 end
 
 When(/^I edit the post to be published$/) do
@@ -551,14 +571,17 @@ end
 
 Then 'I see the draft' do
   within '.post' do
-    expect(page).to have_content 'johnsmith'
-    expect(page).to have_content 'Today I learned about web development'
+    expect(page).to have_content 'Web Development'
+    expect(page).to have_content 'I learned about Rails'
     expect(page).to have_content 'Draft Post'
-    expect(page).to_not have_content 'previous TIL'
-    expect(page).to_not have_content 'next TIL'
+  end
+end
+
+Then(/^I see the published post$/) do
+  within '.post' do
+    expect(page).to have_content 'johnsmith'
+    expect(page).to have_content 'I learned about Rails'
   end
 
-  within '.post:first-child aside' do
-    expect(page).to_not have_content 'like'
-  end
+  expect(page).to_not have_content 'Draft Post'
 end
