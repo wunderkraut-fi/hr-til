@@ -11,10 +11,10 @@
     = favicon_link_tag 'favicon.png'
     = yield :head
     %meta(name="twitter:card" content="summary_large_image")
-    %meta(name="twitter:site" content="@hashrockettil")
-    %meta(name="twitter:creator" content="@hashrockettil")
-    %meta(name="twitter:title" content="Today I Learned: a Hashrocket Project")
-    %meta(name="twitter:description" content="TIL is a project by Hashrocket to catalogue the sharing & accumulation of knowledge as it happens day-to-day. Posts have a 200-word limit and any Hashrocket team member can contribute. We hope you enjoy learning along with us.")
+    %meta(name="twitter:site" content="@wundertil")
+    %meta(name="twitter:creator" content="@wundertil")
+    %meta(name="twitter:title" content="Today I Learned: a Wunder Project")
+    %meta(name="twitter:description" content="TIL Wunder is a project to catalogue the sharing & accumulation of knowledge as it happens day-to-day. Posts have a 200-word limit and any Wunder team member can contribute. We hope you enjoy learning along with us.")
     %meta(name="twitter:image" content="//til.hashrocket.com/assets/til_twittercard.png")
   %body
     %header.site_head
@@ -37,9 +37,7 @@
       = link_to "?", "#", class: "aside_toggle"
       .copy
         :markdown
-          TIL is a project by [Hashrocket](https://hashrocket.com) to catalogue the sharing & accumulation of knowledge as it happens day-to-day. Posts have a 200-word limit and any Hashrocket team member can contribute. We hope you enjoy learning along with us.
-
-          Also: follow [@hashrockettil](https://twitter.com/hashrockettil) to inject your Twitter feed with knowledge.
+          TIL Wunder is a project to catalogue the sharing & accumulation of knowledge as it happens day-to-day. Posts have a 200-word limit and any Wunder team member can contribute. Originally developed by [Hashrocket](https://hashrocket.com)
 
     %aside.site_statistics
       = link_to "statistics", statistics_path, class: "aside_toggle"
@@ -53,13 +51,10 @@
 
     %footer.site_footer
       %p
-        You can follow us on Twitter.
-        = link_to "@hashrockettil", "https://twitter.com/hashrockettil"
-      %p
         TIL is an open source project.
-        = link_to "visit us on Github", "https://github.com/hashrocket/hr-til"
+        = link_to "Github", "https://github.com/hashrocket/hr-til"
       %p
-        curated in Jacksonville and Chicago
+        Build with hugs.
         %br/
         by
-        = link_to 'Hashrocket', 'https://hashrocket.com'
+        = link_to 'Wunder', 'https://wunderkraut.fi'
